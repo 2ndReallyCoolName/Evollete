@@ -37,7 +37,7 @@ namespace evo {
 
 			std::vector<float> get_error(const char* vect_name) { return errors[vect_name]; }
 
-			float get_error(const char* vect_name, int j) { return errors[vect_name]; }
+			float get_error(const char* vect_name, int j) { return errors[vect_name][j]; }
 
 			std::vector<float> activate(std::vector<float> v, const char* act_function, const char* vect_name = "a");
 
