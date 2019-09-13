@@ -27,6 +27,8 @@ std::vector<float> evo::nn:: Dense::feedforward(std::vector<float> x) {
 	vectors.insert(std::pair<const char*, std::vector<float>> ("x" + timestamp, x));
 	std::vector<float> h = evo::matmul(x, weight);
 	vectors.insert(std::pair<const char*, std::vector<float>>("h" + timestamp, h));
+	std::vector<float> y = act.activate(h, activation, "a"+timestamp);
+	vectors.insert(std::pair<const char*, std::vector<float>>("y" + timestamp, y));
 	timestamp++;
 	return h;
 }

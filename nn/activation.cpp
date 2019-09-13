@@ -5,14 +5,13 @@ Accel Ac("C:/Users/ninanpyo/source/repos/Evolette/Evolette/functions.kernel");
 
 
 evo::nn::activation::activation(float alpha = 0.01): alpha(alpha) {
-	m["a"];
-	m["linear"] = linear;
-	m["sigmoid"] = sigmoid;
-	m["tanh"] = tanh;
-	m["relu"] = relu;
-	m["leaky_relu"] = leaky_relu;
-	m["softplus"] = softplus;
-	m["softmax"] = softmax;
+	s2int["linear"] = 0;
+	s2int["sigmoid"] = 1;
+	s2int["softplus"] = 2;
+	s2int["softmax"] = 3;
+	s2int["relu"] = 4;
+	s2int["leaky_relu"] = 5;
+	s2int["tanh"] = 6;
 }
 
 std::vector<float> evo::nn::activation::linear(std::vector<float> v, const char* vect_name) {
@@ -63,6 +62,22 @@ std::vector<float> evo::nn::activation::activate(std::vector<float> v, const cha
 		return v;
 	}
 	else {
-		return m[act_function](v, vect_name);
+		switch (str2int(vect_name))
+		{
+		case 0:
+			return linear(v, vect_name);
+		case 1:
+			return sigmoid(v, vect_name);
+		case 2:
+			return softplus(v, vect_name);
+		case 3:
+			return softmax(v, vect_name);
+		case 4:
+			return relu(v, vect_name);
+		case 5:
+			return leaky_relu(v, vect_name);
+		case 6:
+			return tanh(v, vect_name);
+		}
 	}
 }
