@@ -47,7 +47,8 @@ void kernel init_vec(float val, global float* c, global float* d){
 
 void kernel sigmoid(global const float* a, global float* c, global float* d){
 				int gid = get_global_id(0);
-				float v = 1 / (1 + pow(2.718281828459045, -a[gid]));
+				float m_e = 2.718281828459045;
+				float v = 1 / (1 + pow(m_e, -a[gid]));
 				c[gid] =  v;
 				d[gid] =  v*(1-v);
 }
@@ -74,7 +75,7 @@ void kernel relu(global const float* a, global float* c, global float* d){
 
 void kernel leaky_relu(global const float* a, float val, global float* c, global float* d){
 				int gid = get_global_id(0);
-				if(x < 0){
+				if(a[gid] < 0){
 					c[gid] = val*a[gid];
 					d[gid] = val;
 				}else{
@@ -83,14 +84,14 @@ void kernel leaky_relu(global const float* a, float val, global float* c, global
 				}
 }
 
-void kernel softplus(global const float* a, global float* c){
+void kernel softplus(global const float* a, global float* c, global float* d){
 				int gid = get_global_id(0);
 				float m_e = 2.718281828459045;
 				c[gid] =  log(1+ pow(m_e, a[gid]));
-				d[gid] = 1 / (1 + pow(2.718281828459045, -a[gid]));
+				d[gid] = 1 / (1 + pow(m_e, -a[gid]));
 }
 
-void kernel softmax(global const float* a, global float* c, float val){
+void kernel softmax(global const float* a, float val, global float* c, global float* d){
 				int gid = get_global_id(0);
 				float m_e = 2.718281828459045;
 				if(val != 0){

@@ -70,7 +70,6 @@ std::vector<float> Accel::call1v(std::vector<float> a, std::string operation) {
 }
 
 std::vector<float> Accel::call2v(std::vector<float> a, std::vector<float> b, std::string operation) {
-	//std::cout << "ran" << std::endl;
 	const int LIST_SIZE = a.size();
 
 	cl::Buffer buffer_A(*context, CL_MEM_READ_WRITE, sizeof(float) * LIST_SIZE);
