@@ -4,7 +4,7 @@
 Accel Ac("C:/Users/ninanpyo/source/repos/Evolette/Evolette/functions.kernel");
 
 
-evo::nn::activation::activation(float alpha = 0.01): alpha(alpha) {
+evo::nn::activation::activation(float alpha): alpha(alpha) {
 	s2int["linear"] = 0;
 	s2int["sigmoid"] = 1;
 	s2int["softplus"] = 2;
@@ -57,12 +57,13 @@ std::vector<float> evo::nn::activation::softmax(std::vector<float> v, const char
 }
 
 std::vector<float> evo::nn::activation::activate(std::vector<float> v, const char* act_function, const char* vect_name) {
+	std::cout << vect_name << std::endl;
 	if ((act_function != NULL) && (act_function[0] == '\0')) {
 		errors[vect_name] = Ac.vec(1, v.size());
 		return v;
 	}
 	else {
-		switch (str2int(vect_name))
+		switch (str2int(act_function))
 		{
 		case 0:
 			return linear(v, vect_name);

@@ -18,12 +18,11 @@ namespace evo{
 
 			void initialize_layer();
 
-			void reset_timestamp() { timestamp = 1; }
 
 
 		public:
 			Dense(int unit_size, const char* activation = "softmax", std::vector<float> weight_params = { -1, 1 },
-				std::vector<float> bias_params = { 0, 1 }, bool bias_bool = 1, bool store_vectors = 1, const char* fp = "", float alpha=0.1);
+				std::vector<float> bias_params = { 0, 1 }, bool bias_bool = 1, bool store_vectors = 1, const char* fp = "", float alpha = 0.1);
 
 			Dense(int unit_size, int input_size, const char* activation = "softmax", std::vector<float> weight_params = { -1, 1 },
 				std::vector<float> bias_params = { 0, 1 }, bool bias_bool = 1, bool store_vectors = 1, const char* fp = "", float alpha = 0.1);
@@ -34,6 +33,8 @@ namespace evo{
 
 			void modify_weight(int i, int j, int val) { weight[i][j] += val; }
 
+			void reset_timestamp() { timestamp = 1; }
+
 			void modify_bias(int j, int val) { bias[j] += val; }
 
 			int get_inputSize() const { return in_size; }
@@ -43,6 +44,9 @@ namespace evo{
 			const char* get_activation() const { return activation; }
 
 			std::vector<float> get_vector(const char* name, int timestamp = 0) { return vectors[name]; }
+
+			template<typename T>
+			void print_vector(std::vector<T> a);
 		};
 	}
 }
