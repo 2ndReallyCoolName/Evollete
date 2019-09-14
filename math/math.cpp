@@ -1,4 +1,5 @@
 #include "math.h"
+#include <iostream>
 
 Accel A("C:/Users/ninanpyo/source/repos/Evolette/Evolette/functions.kernel");
 
@@ -13,6 +14,9 @@ std::vector<float> evo::add(std::vector<float> a, std::vector<float> b) {
 
 std::vector<float> evo::add(std::vector<float> a, float b) {
 	return A.call1v(a, "shift", b);
+}
+std::vector<float> evo::diff(std::vector<float> a, std::vector<float> b) {
+	return A.call2v(a, b, "sub");
 }
 
 std::vector<float> evo::multiply(std::vector<float> a, std::vector<float> b) {

@@ -13,6 +13,7 @@ namespace evo {
 	float dot(std::vector<float> a, std::vector<float> b);
 	std::vector<float> add(std::vector<float> a, std::vector<float> b);
 	std::vector<float> add(std::vector<float> a, float b);
+	std::vector<float> diff(std::vector<float> a, std::vector<float> b);
 	std::vector<float> multiply(std::vector<float> a, std::vector<float> b);
 	std::vector<float> multiply(std::vector<float> a, float b);
 	std::vector<float> empty(int size);
