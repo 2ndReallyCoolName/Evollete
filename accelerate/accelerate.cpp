@@ -97,7 +97,7 @@ std::vector<float> Accel::call2v(std::vector<float> a, std::vector<float> b, std
 
 
 std::vector<float> Accel::vec(int val, int size) {
-	std::vector<float> c;
+	std::vector<float> c(size);
 	cl::Buffer buffer_C(*context, CL_MEM_READ_WRITE, size*sizeof(float));
 
 	cl::Kernel k = cl::Kernel(*program, "init_vec");
