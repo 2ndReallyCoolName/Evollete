@@ -28,7 +28,8 @@ std::vector<float> evo::multiply(std::vector<float> a, float b) {
 }
 
 std::vector<float> evo::empty(int size) {
-	return A.vec(0, size);
+	std::vector<float> v(size, 0);
+	return v;
 }
 
 std::vector<float> evo::vec(int size, int val) {
@@ -110,7 +111,7 @@ mtx evo::add(mtx A, mtx B) {
 }
 
 
-mtx evo::random_mtx(int m, int n, int max, int min) {
+mtx evo::random_mtx(int m, int n, float max, float min) {
 	mtx R(m, std::vector<float>(n, 0));
 
 	for (int i = 0; i < m; i++) {
@@ -122,7 +123,7 @@ mtx evo::random_mtx(int m, int n, int max, int min) {
 	return R;
 }
 
-std::vector<float> evo::random_vec(int size, int max, int min) {
+std::vector<float> evo::random_vec(int size, float max, float min) {
 	std::vector<float> v(size);
 
 #pragma omp parallel
@@ -130,4 +131,23 @@ std::vector<float> evo::random_vec(int size, int max, int min) {
 		v[i] = min + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (max - min)));;
 	}
 	return v;
+}
+
+mtx evo::empty(int m, int n) {
+	mtx M(m, std::vector<float>(n, 0));
+	return M;
+}
+
+int evo::argmax(std::vector<float> v) {
+	float mx = 0.0f;
+	int index = 0;
+	(v.size() == 0) ? mx = 0 : mx = v[0];
+
+	for (unsigned int i = 1; i < v.size(); i++) {
+		if (mx < v[i]) {
+			mx = v[i];
+			index = i;
+		}
+	}
+	return index;
 }
