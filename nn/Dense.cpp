@@ -1,8 +1,8 @@
 #include "Dense.h"
 
 
-evo::nn:: Dense::Dense(int unit_size, const char* activation, std::vector<float> weight_params, std::vector<float> bias_params,
-	bool bias_bool, bool store_vectors, const char* fp, float alpha)
+evo::nn:: Dense::Dense(int unit_size, std::string activation, std::vector<float> weight_params, std::vector<float> bias_params,
+	bool bias_bool, bool store_vectors, std::string fp, float alpha)
 	:out_size(unit_size), in_size(0), activation(activation), weight_params(weight_params), bias_params(bias_params), bias_bool(bias_bool),
 	store_vectors(store_vectors), timestamp(1), fp(fp)
 {
@@ -12,8 +12,8 @@ evo::nn:: Dense::Dense(int unit_size, const char* activation, std::vector<float>
 	}
 }
 
-evo::nn::Dense::Dense(int unit_size, int input_size, const char* activation, std::vector<float> weight_params, std::vector<float> bias_params,
-	bool bias_bool, bool store_vectors, const char* fp, float alpha)
+evo::nn::Dense::Dense(int unit_size, int input_size, std::string activation, std::vector<float> weight_params, std::vector<float> bias_params,
+	bool bias_bool, bool store_vectors, std::string fp, float alpha)
 	:out_size(unit_size), in_size(input_size), activation(activation), weight_params(weight_params), bias_params(bias_params), bias_bool(bias_bool),
 	store_vectors(store_vectors), timestamp(1), fp(fp)
 {
@@ -21,16 +21,14 @@ evo::nn::Dense::Dense(int unit_size, int input_size, const char* activation, std
 	if (fp == "") {
 		initialize_layer();
 	}
-
-
 }
 
 std::vector<float> evo::nn:: Dense::feedforward(std::vector<float> x) {
-	vectors.insert(std::pair<const char*, std::vector<float>> ("x" + timestamp, x));
+	vectors.insert(std::pair<std::string, std::vector<float>> ("x" + std::to_string(timestamp), x));
 	std::vector<float> h = evo::matmul(x, weight);
-	vectors.insert(std::pair<const char*, std::vector<float>>("h" + timestamp, h));
-	std::vector<float> y = act.activate(h, activation, "a"+timestamp);
-	vectors.insert(std::pair<const char*, std::vector<float>>("y" + timestamp, y));
+	vectors.insert(std::pair<std::string, std::vector<float>>("h" + std::to_string(timestamp), h));
+	std::vector<float> y = act.activate(h, activation, "a"+std::to_string(timestamp));
+	vectors.insert(std::pair<std::string, std::vector<float>>("y" + std::to_string(timestamp), y));
 	timestamp++;
 	return y;
 }
@@ -49,8 +47,8 @@ void evo::nn::Dense::train(std::vector<float> loss_vector, float training_rate) 
 }
 
 void evo::nn::Dense::gradient(float error, int i, int j, int timestamp, float training_rate) {
-	float dy_dh = act.get_error("a" + timestamp)[j];
-	const char* vc = "x" + timestamp;
+	float dy_dh = act.get_error("a" + std::to_string(timestamp))[j];
+	std::string vc = "x" + std::to_string(timestamp);
 	std::vector<float> x = vectors[vc];
 	float dh_w = 0;
 	dh_w = x[i];

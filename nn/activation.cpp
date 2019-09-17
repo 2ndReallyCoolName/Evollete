@@ -14,51 +14,51 @@ evo::nn::activation::activation(float alpha): alpha(alpha) {
 	s2int["tanh"] = 6;
 }
 
-std::vector<float> evo::nn::activation::linear(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::linear(std::vector<float> v, std::string vect_name) {
 	errors[vect_name] = std::vector<float>(v.size(), 1);
 	return v;
 }
 
-std::vector<float> evo::nn::activation::sigmoid(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::sigmoid(std::vector<float> v, std::string vect_name) {
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "sigmoid");
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::tanh(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::tanh(std::vector<float> v, std::string vect_name) {
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "tanh");
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::relu(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::relu(std::vector<float> v, std::string vect_name) {
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "relu");
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::leaky_relu(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::leaky_relu(std::vector<float> v, std::string vect_name) {
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "leaky_relu", alpha);
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::softplus(std::vector<float> v, const char* vect_name) {
+std::vector<float> evo::nn::activation::softplus(std::vector<float> v, std::string vect_name) {
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "softplus");
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::softmax(std::vector<float> v, const char* vect_name) {
-	float sm = evo::sum(Ac.call1v(v, "raise", 2.718281828459045));
+std::vector<float> evo::nn::activation::softmax(std::vector<float> v, std::string vect_name) {
+	const float e = (float) std::exp(1.0);
+	float sm = evo::sum(Ac.call1v(v, "raise", e));
 	std::vector<std::vector<float>> res = Ac.callActivationFunction(v, "softmax", sm);
 	errors[vect_name] = res[1];
 	return res[0];
 }
 
-std::vector<float> evo::nn::activation::activate(std::vector<float> v, const char* act_function, const char* vect_name) {
-	std::cout << vect_name << std::endl;
-	if ((act_function != NULL) && (act_function[0] == '\0')) {
+std::vector<float> evo::nn::activation::activate(std::vector<float> v, std::string act_function, std::string vect_name) {
+	if (act_function == "") {
 		errors[vect_name] = Ac.vec(1, v.size());
 		return v;
 	}
