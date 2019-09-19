@@ -79,6 +79,8 @@ std::vector<float> evo::nn::activation::activate(std::vector<float> v, std::stri
 			return leaky_relu(v, vect_name);
 		case 6:
 			return tanh(v, vect_name);
+		default:
+			return linear(v, vect_name);
 		}
 	}
 }
