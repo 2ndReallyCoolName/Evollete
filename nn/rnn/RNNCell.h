@@ -1,6 +1,6 @@
 #pragma once
 #include "AbstractRNN.h"
-#include <amp.h>
+#include <omp.h>
 
 namespace evo {
 	namespace nn {

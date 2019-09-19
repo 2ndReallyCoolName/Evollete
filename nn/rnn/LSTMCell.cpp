@@ -19,7 +19,7 @@ evo::nn::rnn::LSTMCell::LSTMCell(int hidden_size, int training_iterations, std::
 
 evo::nn::rnn::LSTMCell::LSTMCell(int hidden_size, int input_size, int training_iterations, std::string hidden_activation, std::string gate_activation, std::vector<float> weight_params,
 	std::vector<float> bias_params, bool bias_bool, std::string fp)
-	: AbstractRNN::AbstractRNN(0, hidden_size, gate_activation, hidden_activation, weight_params, bias_params, bias_bool, training_iterations, alpha, fp),
+	: AbstractRNN::AbstractRNN(input_size, hidden_size, gate_activation, hidden_activation, weight_params, bias_params, bias_bool, training_iterations, alpha, fp),
 	IG(hidden_size, input_size, "", weight_params, bias_params, 0),
 	IH(hidden_size, hidden_size, "", weight_params, bias_params, bias_bool),
 	FG(hidden_size, input_size, "", weight_params, bias_params, 0),
