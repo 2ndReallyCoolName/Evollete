@@ -70,10 +70,10 @@ mtx evo::split(std::vector<float> a) {
 mtx evo::matmul(mtx A, mtx B) {
 	mtx C(A.size(), std::vector<float>(B[0].size(), 0));
 	int sz = B[0].size();
+	int sz1 = A.size();
 	for (int j = 0; j < sz; j++) {
 		std::vector<float> col = get_column(B, j);
 #pragma omp parallel
-		int sz1 = A.size();
 		for (int i = 0; i < sz1; i++) {
 			C[i][j] = dot(A[i], col);
 		}

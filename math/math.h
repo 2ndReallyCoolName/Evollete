@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include "accelerate.h"
-#include <amp.h>
+#include <omp.h>
 #include <cmath>
 #include <random>
 
